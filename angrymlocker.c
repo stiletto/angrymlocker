@@ -39,7 +39,15 @@ static int debug_enabled;
 void my_load(void)
 {
     char* env_debug = getenv("ANGRYMLOCKER_DEBUG");
+    char* env_reset = getenv("ANGRYMLOCKER_RESETENV");
     debug_enabled = env_debug && !strcmp(env_debug,"1");
+
+    if ( env_reset && !strcmp(env_debug,"1")) {
+	unsetenv("ANGRYMLOCKER_DEBUG");
+	unsetenv("ANGRYMLOCKER_RESETENV");
+	unsetenv("LD_PRELOAD");
+    }
+
     int res = mlockall(MCL_CURRENT | MCL_FUTURE);
     if (debug_enabled) {
 	if (!res)
