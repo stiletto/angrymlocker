@@ -7,6 +7,9 @@ libangrymlocker.so: angrymlocker.c
 install: libangrymlocker.so
 	install -m 0755 -o root -g root libangrymlocker.so `pkg-config --variable=moduledir xorg-server`/
 
+uninstall:
+	rm `pkg-config --variable=moduledir xorg-server`/libangrymlocker.so
+
 clean:
 	rm -f libangrymlocker.so *.o
 
